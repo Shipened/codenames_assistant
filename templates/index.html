@@ -9,13 +9,32 @@
 </head>
 
 <body>
-  <img src="{{ url_for('static', filename='dog.png') }}" class="icon" />
-  <h3>Name my pet</h3>
-  <form action="/" method="post">
-    <input type="text" name="animal" placeholder="Enter an animal" required />
-    <input type="submit" value="Generate names" />
+  <img src="{{ url_for('static', filename='red-blue-agents.jpg') }}" class="icon" width="100000" height="100"/>
+  <h3>Codenames Clue Generator</h3>
+  <form action="/" method="post" onsubmit="saveClue()">
+    <input type="text" name="clue" id="clueInput" placeholder="Enter target words" required />
+    <input type="text" name="avoid words" placeholder="Enter words to avoid (Optional)" />
+    <input type="submit" value="Generate clues" />
   </form>
   {% if result %}
   <div class="result">{{ result }}</div>
   {% endif %}
+
+  <script>
+    // Function to save the clue to local storage
+    function saveClue() {
+      const clueInput = document.getElementById('clueInput');
+      localStorage.setItem('lastClue', clueInput.value);
+    }
+
+    // Retrieve the last clue from local storage and set it to the input field on page load
+    window.onload = function() {
+      const lastClue = localStorage.getItem('lastClue');
+      if (lastClue) {
+        const clueInput = document.getElementById('clueInput');
+        clueInput.value = lastClue;
+      }
+    };
+  </script>
 </body>
+
